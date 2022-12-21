@@ -1,20 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
-struct Personaggio{
-    char *name;
-    int *lvl;
-    int *hp;
-    int *armor;
+typedef struct Personaggio
+{
+    char name[10];
+    int lvl;
+    int hp;
+    int armor;
+} PG;
 
-};
-typedef struct Personaggio PG;
-
-void scan_information( PG *Persona){
-
+void inserimento_nome(PG *pg)
+{
+    printf("Inserisci un nome per il tuo personaggio\n");
+    scanf("%s", pg->name);
+    printf("Il tuo nome e': %s\n", pg->name);
 }
-int main() {
-    PG persona;
-    scan_information(&persona);
 
+int main()
+{
+    PG pg;
+    inserimento_nome(&pg);
+    return 0;
 }
