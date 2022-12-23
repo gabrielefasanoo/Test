@@ -1,12 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <time.h>
+#include <string.h>
+#include <Windows.h>
+#include <math.h>
 #define SIZE_INV 21
-#define SIZE_EQUIP 5
+#define SIZE_EQUIP 6
+#define SIZE_NOME 10
+#define SIZE_NOME_OGGETTO 20
+#define SIZE_DESCRIZIONE 500
+#define SIZE_SENTENCE 1000
 
 typedef struct Personaggio
 {
-    char *name[10];
+    char name[10];
     int *lvl;
     int *hp;
     int *armor;
@@ -14,12 +21,13 @@ typedef struct Personaggio
 
 typedef struct Oggetto
 {
-    char *nome[20];
-    int *Durability;
-    const char *Rarity;
-    int *Damage;
-    char *Descrizione[500];
+    char nome[20];
+    char Descrizione[500];
     char *Tipo;
+    const char *Rarity;
+    int Value;
+    int Durability;
+    int Damage;
 
 } O;
 
@@ -28,7 +36,7 @@ void SetColor(unsigned short color)
     HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hCon, color);
 }
-void print_decorate_sentence(char sentence[1000])
+void print_decorate_choices(char sentence[SIZE_SENTENCE])
 {
     int length; // Create a variable to hold the length of the sentence
 
@@ -82,81 +90,247 @@ void print_decorate_sentence(char sentence[1000])
     }
     printf("\n\n");
 }
-int inserimento_nome(ST *pg)
+void print_decorate_sentence(char sentence[SIZE_SENTENCE])
+{
+    int Length;
+    int count = 0;
+    for (int i = 0; i < SIZE_SENTENCE; i++)
+    {
+        if (sentence[i] == '\n')
+        {
+            count++;
+            Length = i;
+        }
+        if (sentence[i] == '\0')
+        {
+            Length = i - count;
+            break;
+        }
+    }
+    int sentence_length = strlen(sentence);
+    int num_middle_chars = ceil(((double)sentence_length - 2) / 4);
+    printf("+");
+    int i;
+    for (i = 0; i < num_middle_chars; i++)
+    {
+        if (i == 0)
+        {
+            printf("---");
+        }
+        else
+        {
+            printf("~---");
+        }
+    }
+    printf("+\n");
+    // make a loop to print the sentence
+    for (int i = 0; i < sentence_length; i++)
+    {
+        printf("%c", sentence[i]);
+    }
+    // print the bottom border
+    printf("+");
+    for (i = 0; i < num_middle_chars; i++)
+    {
+        if (i == 0)
+        {
+            printf("---");
+        }
+        else
+        {
+            printf("~---");
+        }
+    }
+    printf("+\n");
+}
+void inserimento_nome(ST *pg)
 {
     SetColor(9); // blu
-    char sentence_nome[1000] = ("Inserisci un nome per il tuo personaggio\n");
+    char sentence_nome[SIZE_SENTENCE] = ("Inserisci un nome per il tuo personaggio\n");
     print_decorate_sentence(sentence_nome);
     SetColor(7); // bianco
     scanf("%s", pg->name);
     SetColor(9); // blu
-    printf("Il tuo nome sara': %s, lo confermi? (Y)Si o (N))No\n", pg->name);
+    if (strlen(pg->name) > SIZE_NOME)
+    {
+        SetColor(4); // rosso
+        printf("nome troppo lungo\n\n");
+        inserimento_nome(pg);
+    }
+    if (strlen(pg->name) <= 3)
+    {
+        SetColor(4); // rosso
+        printf("nome non valido\n\n");
+        inserimento_nome(pg);
+    }
+    if (strlen(pg->name) <= SIZE_NOME && strlen(pg->name) > 3)
+    {
+        SetColor(2); // verde
+        printf("nome inserito correttamente\n\n");
+    }
+    SetColor(9); // blu
+    char sentence_conferma[SIZE_SENTENCE] = ("Lo confermi? (Y)Si o (N))No\n");
+    print_decorate_choices(sentence_conferma);
     char conferma_nome;
     SetColor(7); // bianco
     scanf("%s", &conferma_nome);
-    if (conferma_nome == 'Y' || conferma_nome == 'y')
+    switch (conferma_nome)
     {
-        
-    }
-    if (conferma_nome == 'N' || conferma_nome == 'n')
-    {
+    case 'Y':
+        SetColor(2); // verde
+        printf("Nome confermato\n");
+        break;
+    case 'N':
         inserimento_nome(pg);
-    }
-    else {
-        SetColor(4); //rosso
-        printf("Risposta non valida, riprova\n");
+        break;
+    case 'y':
+        SetColor(2); // verde
+        printf("Nome confermato\n");
+        break;
+    case 'n':
         inserimento_nome(pg);
+        break;
+    default:
+        SetColor(4); // rosso
+        printf("Inserisci un opzione valida\n");
+        inserimento_nome(pg);
+        break;
     }
 }
-int statistiche(ST *pg)
+int statistiche_iniziali(ST *pg)
 {
     pg->hp = pg->hp + 25;
     pg->armor = pg->armor + 5;
-
-    // aumento della vita e dell'armor in base al livello
-    if (*pg->lvl > 1)
+}
+int inv_zaino_iniziale(O *inventario)
+{
+    int i;
+    for (i = 0; i < SIZE_INV; i++)
     {
-        *pg->hp = *pg->hp + (25) * (*pg->lvl);
-        *pg->armor = *pg->armor + (5) * (*pg->lvl);
+        switch (i)
+        {
+        case 0:
+            strcpy(inventario[i].nome, "Pozione di guarigione");
+            strcpy(inventario[i].Descrizione, "Pozione che guarisce 10 punti vita");
+            inventario[i].Tipo, "Guarigione";
+            inventario[i].Rarity = "Comune";
+            inventario[i].Value = 10;
+            inventario[i].Durability = 1;
+            inventario[i].Damage = 0;
+            break;
+        default:
+            strcpy(inventario[i].nome, "vuoto");
+            strcpy(inventario[i].Descrizione, "");
+            inventario[i].Tipo = "";
+            inventario[i].Rarity = "";
+            inventario[i].Value = 0;
+            inventario[i].Durability = 0;
+            inventario[i].Damage = 0;
+            break;
+        }
     }
 }
-int inv_zaino_iniziale(ST *pg, O *inventario)
+int equip_iniziale(ST *pg, O *equipaggiamento)
 {
-    inventario[0].nome[20] = "Spada di seconda mano";
-    inventario[0].Descrizione[500] = "Spada di ferro scadente, sicuramente si rompera' presto...";
-    inventario[0].Tipo[0];
-    inventario[0].Rarity[0];
-    *inventario[0].Damage = 10;
-    *inventario[0].Durability = 20;
-    
-    inventario[1].nome[20] = "Scudo di fortuna";
-    inventario[1].Descrizione[500] = "Scudo di legno scadente, sicuramente si rompera' presto...";
-    inventario[1].Tipo[0];
-    inventario[1].Rarity[0];
-    *inventario[1].Damage = 0;
-    *inventario[1].Durability = 20;
-    
-    inventario[2].nome[20] = "Pozione di guarigione";
-    inventario[2].Descrizione[500] = "Pozione di guarigione, ristabilisce 10 punti vita";
-    inventario[2].Tipo[0];
-    inventario[2].Rarity[0];
-    *inventario[2].Damage = 0;
-    *inventario[2].Durability = 1;
+    int i;
+    for (i = 0; i < SIZE_EQUIP; i++)
+    {
+        switch (i)
+        {
+        case 0:
+            strcpy(equipaggiamento[i].nome, "Spada");
+            strcpy(equipaggiamento[i].Descrizione, "Spada di legno di seconda mano, si rompe facilmente...");
+            equipaggiamento[i].Tipo = "Arma";
+            equipaggiamento[i].Rarity = "Comune";
+            equipaggiamento[i].Value = 5;
+            equipaggiamento[i].Durability = 10;
+            equipaggiamento[i].Damage = 10;
+            break;
+        case 1:
+            strcpy(equipaggiamento[i].nome, "Scudo di legno");
+            strcpy(equipaggiamento[i].Descrizione, "Scudo di legno di seconda mano, si rompe facilmente...");
+            equipaggiamento[i].Tipo = "Armatura";
+            equipaggiamento[i].Rarity = "Comune";
+            equipaggiamento[i].Value = 2;
+            equipaggiamento[i].Durability = 10;
+            equipaggiamento[i].Damage = 0;
+            break;
+        case 2:
+            strcpy(equipaggiamento[i].nome, "Elmo di cuoio");
+            strcpy(equipaggiamento[i].Descrizione, "Elmo di cuoio di semplice fattura, fa il suo dovere...");
+            equipaggiamento[i].Tipo = "Armatura";
+            equipaggiamento[i].Rarity = "Comune";
+            equipaggiamento[i].Value = 5;
+            equipaggiamento[i].Durability = 10;
+            equipaggiamento[i].Damage = 0;
+            break;
+        case 3:
+            strcpy(equipaggiamento[i].nome, "Corazza di cuoio");
+            strcpy(equipaggiamento[i].Descrizione, "Corazza di cuoio di semplice fattura, fa il suo dovere...");
+            equipaggiamento[i].Tipo = "Armatura";
+            equipaggiamento[i].Rarity = 0;
+            equipaggiamento[i].Value = 5;
+            equipaggiamento[i].Durability = 10;
+            equipaggiamento[i].Damage = 0;
+            break;
+        case 4:
+            strcpy(equipaggiamento[i].nome, "Pantaloni di cuoio");
+            strcpy(equipaggiamento[i].Descrizione, "Pantaloni di cuoio di semplice fattura, fa il suo dovere...");
+            equipaggiamento[i].Tipo = "Armatura";
+            equipaggiamento[i].Rarity = "Comune";
+            equipaggiamento[i].Value = 5;
+            equipaggiamento[i].Durability = 10;
+            equipaggiamento[i].Damage = 0;
+            break;
+        case 5:
+            strcpy(equipaggiamento[i].nome, "Stivali di cuoio");
+            strcpy(equipaggiamento[i].Descrizione, "Stivali di cuoio di semplice fattura, fa il suo dovere...");
+            equipaggiamento[i].Tipo = "Armatura";
+            equipaggiamento[i].Rarity = "Comune";
+            equipaggiamento[i].Value = 5;
+            equipaggiamento[i].Durability = 10;
+            equipaggiamento[i].Damage = 0;
+            break;
+        default:
+            strcpy(equipaggiamento[i].nome, "vuoto");
+            strcpy(equipaggiamento[i].Descrizione, "Descrizione non disponibile");
+            equipaggiamento[i].Tipo = "";
+            equipaggiamento[i].Rarity = "";
+            equipaggiamento[i].Value = 0;
+            equipaggiamento[i].Durability = 0;
+            equipaggiamento[i].Damage = 0;
+            break;
+        }
+    }
+}
+int zaino(ST *pg, O *inventario)
+{
+    char lvl_zaino = 'I';
+    SetColor(5); // viola
+    printf("+---~---~---~ZAINO~---~---~---+\n");
+    // stampare la lista degli oggetti presenti nel zaino
+    int i;
+    for (i = 0; i < SIZE_INV; i++)
+    {
+        // stampa nome oggetto
+        printf("> %s\n", inventario[i].nome);
+    }
+    printf("+---~---~---~[ %s ]~---~---~---+\n", lvl_zaino);
 }
 
 int main()
 {
-    ST pg; // dichiarazione del personaggio
-    *pg.lvl = 1; 
-    const char *Rarity[]={"Comune", "Raro", "Epico", "Leggendario"}; // array di rarita'
-    const char *Tipo[]={"Arma", "Armatura", "Guarigione", "Buff", "Debuff", "Veleno"}; // array di tipi
-    O inventario[SIZE_INV]; // array di oggetti
-    O equipaggiamento[SIZE_EQUIP]; // array di oggetti equipaggiati
-    inserimento_nome(&pg); // funzione per l'inserimento del nome del personaggio
-    statistiche(&pg); // funzione per l'inserimento delle statistiche del personaggio
-    // funzione per l'inserimento degli oggetti nell'inventario
-    inv_zaino_iniziale(&pg, inventario);
-    SetColor(2); //verde
-    printf("programma riuscito..."); // messaggio di conferma
+    ST pg;
+    inserimento_nome(&pg);
+    statistiche_iniziali(&pg);
+    const char *Rarity[] = {"Comune", "Raro", "Epico", "Leggendario"};
+    const char *Tipo[] = {"Arma", "Armatura", "Guarigione", "Buff", "Debuff", "Veleno"};
+    O inventario[SIZE_INV];
+    O equipaggiamento[SIZE_EQUIP];
+    inv_zaino_iniziale(inventario);
+    equip_iniziale(&pg, equipaggiamento);
+    zaino(&pg, inventario);
+    SetColor(2); // verde
+    printf("programma riuscito...");
     return 0;
 }
