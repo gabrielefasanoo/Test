@@ -507,6 +507,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Damage = 5;
                     break;
                 }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
+                    break;
+                }
             }
         }
         else
@@ -531,6 +537,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Value = 20;
                     inventario[i].Durability = 20;
                     inventario[i].Damage = 20;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
                     break;
                 }
             }
@@ -559,6 +571,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Damage = 30;
                     break;
                 }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
+                    break;
+                }
             }
         }
         else
@@ -583,6 +601,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Value = 40;
                     inventario[i].Durability = 40;
                     inventario[i].Damage = 40;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
                     break;
                 }
             }
@@ -611,6 +635,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Damage = 50;
                     break;
                 }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
+                    break;
+                }
             }
         }
         else
@@ -635,6 +665,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Value = 60;
                     inventario[i].Durability = 60;
                     inventario[i].Damage = 60;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
                     break;
                 }
             }
@@ -663,6 +699,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Damage = 70;
                     break;
                 }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
+                    break;
+                }
             }
         }
         else
@@ -689,10 +731,16 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Damage = 80;
                     break;
                 }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
+                    break;
+                }
             }
         }
         else
-        {   
+        {
             SetColor(4); // rosso
             printf("Non hai abbastanza soldi!\n");
             Sleep(1000);
@@ -713,6 +761,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Value = 90;
                     inventario[i].Durability = 90;
                     inventario[i].Damage = 90;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
                     break;
                 }
             }
@@ -741,6 +795,12 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
                     inventario[i].Damage = 100;
                     break;
                 }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    printf("Inventario pieno!\n");
+                    Sleep(1000);
+                    break;
+                }
             }
         }
         else
@@ -752,12 +812,962 @@ void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
     case 11:
         break;
     default:
-        SetColor (4); //rosso
+        SetColor(4); // rosso
         printf("Scelta non valida!\n");
         Sleep(1000);
         break;
     }
 }
+
+void vendi_spade(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[SPADE]~---~---~---+\n");
+        printf("> (1) Spada di legno \n");
+        printf("> (2) Spada di rame \n");
+        printf("> (3) Spada di ferro \n");
+        printf("> (4) Spada d'acciaio \n");
+        printf("> (5) Spada d'argento \n");
+        printf("> (6) Spada magica[I] \n");
+        printf("> (7) Spada magica[II] \n");
+        printf("> (8) Spada magica[III] \n");
+        printf("> (9) Spada magica[IV] \n");
+        printf("> (10) Spada magica[V] \n");
+        printf("> (11) Indietro \n");
+        printf("+---~---~---~[ %d ]~---~---~---+\n\n", pg->Gold);
+    } while (scelta < 1 || scelta > 16);
+    switch (scelta)
+    {
+    case 1:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada di legno")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada di legno!\n");
+        Sleep(1000);
+        break;
+    case 2:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada di rame")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada di rame!\n");
+        Sleep(1000);
+        break;
+    case 3:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada di ferro")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada di ferro!\n");
+        Sleep(1000);
+        break;
+    case 4:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada d'acciaio")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada d'acciaio!\n");
+        Sleep(1000);
+        break;
+    case 5:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada d'argento")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada d'argento!\n");
+        Sleep(1000);
+        break;
+    case 6:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada magica[I]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada magica[I]!\n");
+        Sleep(1000);
+        break;
+    case 7:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada magica[II]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada magica[II]!\n");
+        Sleep(1000);
+        break;
+    case 8:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada magica[III]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada magica[III]!\n");
+        Sleep(1000);
+        break;
+    case 9:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada magica[IV]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada magica[IV]!\n");
+        Sleep(1000);
+        break;
+    case 10:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Spada magica[V]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto la spada magica[V]!\n");
+        Sleep(1000);
+        break;
+    case 11:
+        break;
+    }
+}
+
+void compra_asce(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[NEGOZIO]~---~---~---+\n");
+        printf("> (1) Ascia di legno \n");
+        printf("> (2) Ascia di rame \n");
+        printf("> (3) Ascia di ferro \n");
+        printf("> (4) Ascia d'acciaio \n");
+        printf("> (5) Ascia d'argento \n");
+        printf("> (6) Ascia magica[I] \n");
+        printf("> (7) Ascia magica[II] \n");
+        printf("> (8) Ascia magica[III] \n");
+        printf("> (9) Ascia magica[IV] \n");
+        printf("> (10) Ascia magica[V] \n");
+        printf("> (11) Indietro \n");
+        printf("+---~---~---~--[%d]--~---~---~---+\n", pg->Gold);
+    } while (scelta < 1 || scelta > 11);
+    switch (scelta)
+    {
+    case 1:
+        if (pg->Gold >= 10)
+        {
+            pg->Gold -= 10;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Ascia di legno");
+                    strcpy(inventario[i].Descrizione, "Ascia di legno");
+                    inventario[i].Tipo = "Ascia";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 10;
+                    inventario[i].Durability = 10;
+                    inventario[i].Damage = 5;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    SetColor(4); // rosso
+                    printf("Non hai spazio nell'inventario!\n");
+                    Sleep(1000);
+                    break;
+                }
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia di legno!\n");
+        Sleep(1000);
+        break;
+    case 2:
+        if (pg->Gold >= 10)
+        {
+            pg->Gold -= 10;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Ascia di rame");
+                    strcpy(inventario[i].Descrizione, "Ascia di rame");
+                    inventario[i].Tipo = "Ascia";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 20;
+                    inventario[i].Durability = 20;
+                    inventario[i].Damage = 10;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    SetColor(4); // rosso
+                    printf("Non hai spazio nell'inventario!\n");
+                    Sleep(1000);
+                    break;
+                }
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia di rame!\n");
+        Sleep(1000);
+        break;
+    case 3:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia di ferro");
+                strcpy(inventario[i].Descrizione, "Ascia di ferro");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 30;
+                inventario[i].Durability = 30;
+                inventario[i].Damage = 15;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia di ferro!\n");
+        Sleep(1000);
+        break;
+    case 4:
+        if (pg->Gold >= 10)
+        {
+            pg->Gold -= 10;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Ascia d'acciaio");
+                    strcpy(inventario[i].Descrizione, "Ascia d'acciaio");
+                    inventario[i].Tipo = "Ascia";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 40;
+                    inventario[i].Durability = 40;
+                    inventario[i].Damage = 20;
+                    break;
+                }
+                else if (inventario[i].nome != "vuoto")
+                {
+                    SetColor(4); // rosso
+                    printf("Non hai spazio nell'inventario!\n");
+                    Sleep(1000);
+                    break;
+                }
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia d'acciaio!\n");
+        Sleep(1000);
+        break;
+    case 5:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia d'argento");
+                strcpy(inventario[i].Descrizione, "Ascia d'argento");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 50;
+                inventario[i].Durability = 50;
+                inventario[i].Damage = 25;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia d'argento!\n");
+        Sleep(1000);
+        break;
+    case 6:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia magica[I]");
+                strcpy(inventario[i].Descrizione, "Ascia magica[I]");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 100;
+                inventario[i].Durability = 100;
+                inventario[i].Damage = 50;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia magica[I]!\n");
+        Sleep(1000);
+        break;
+    case 7:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia magica[II]");
+                strcpy(inventario[i].Descrizione, "Ascia magica[II]");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 200;
+                inventario[i].Durability = 200;
+                inventario[i].Damage = 100;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia magica[II]!\n");
+        Sleep(1000);
+        break;
+    case 8:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia magica[III]");
+                strcpy(inventario[i].Descrizione, "Ascia magica[III]");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 300;
+                inventario[i].Durability = 300;
+                inventario[i].Damage = 150;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia magica[III]!\n");
+        Sleep(1000);
+        break;
+    case 9:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia magica[IV]");
+                strcpy(inventario[i].Descrizione, "Ascia magica[IV]");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 400;
+                inventario[i].Durability = 400;
+                inventario[i].Damage = 200;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia magica[IV]!\n");
+        Sleep(1000);
+        break;
+    case 10:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Ascia magica[V]");
+                strcpy(inventario[i].Descrizione, "Ascia magica[V]");
+                inventario[i].Tipo = "Ascia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 500;
+                inventario[i].Durability = 500;
+                inventario[i].Damage = 250;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato l'ascia magica[V]!\n");
+        Sleep(1000);
+        break;
+    case 11:
+        break;
+    default:
+        SetColor(4); // rosso
+        printf("Scelta non valida!\n");
+        Sleep(1000);
+        break;
+    }
+}
+
+void vendi_asce(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear;
+        SetColor(5); // viola
+        printf("+---~---~---~[ARMI]~---~---~---+\n");
+        printf("> (1) Ascia di legno \n");
+        printf("> (2) Ascia di rame \n");
+        printf("> (3) Ascia di ferro \n");
+        printf("> (4) Ascia d'acciaio \n");
+        printf("> (5) Ascia d'argento \n");
+        printf("> (6) Ascia magica[I] \n");
+        printf("> (7) Ascia magica[II] \n");
+        printf("> (8) Ascia magica[III] \n");
+        printf("> (9) Ascia magica[IV] \n");
+        printf("> (10) Ascia magica[V] \n");
+        printf("> (11) Indietro \n");
+    } while (scelta < 1 || scelta > 11);
+    switch (scelta)
+    {
+    case 1:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia di legno")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia di legno!\n");
+        Sleep(1000);
+        break;
+    case 2:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia di rame")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia di rame!\n");
+        Sleep(1000);
+        break;
+    case 3:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia di ferro")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia di ferro!\n");
+        Sleep(1000);
+        break;
+    case 4:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia d'acciaio")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia d'acciaio!\n");
+        Sleep(1000);
+        break;
+    case 5:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia d'argento")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia d'argento!\n");
+        Sleep(1000);
+        break;
+    case 6:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia magica[I]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia magica[I]!\n");
+        Sleep(1000);
+        break;
+    case 7:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia magica[II]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia magica[II]!\n");
+        Sleep(1000);
+        break;
+    case 8:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia magica[III]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia magica[III]!\n");
+        Sleep(1000);
+        break;
+    case 9:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia magica[IV]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia magica[IV]!\n");
+        Sleep(1000);
+        break;
+    case 10:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "Ascia magica[V]")
+            {
+                pg->Gold += inventario[i].Value;
+                strcpy(inventario[i].nome, "vuoto");
+                strcpy(inventario[i].Descrizione, "vuoto");
+                inventario[i].Tipo = "vuoto";
+                inventario[i].Rarity = "vuoto";
+                inventario[i].Value = 0;
+                inventario[i].Durability = 0;
+                inventario[i].Damage = 0;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai venduto l'ascia magica[V]!\n");
+        Sleep(1000);
+        break;
+    case 11:
+        break;
+    default:
+        SetColor(4); // rosso
+        printf("Scelta non valida!\n");
+        Sleep(1000);
+        break;
+    }
+}
+
+void compra_lancie(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[NEGOZIO]~---~---~---+\n");
+        printf("> (1) Lancia di legno \n");
+        printf("> (2) Lancia di rame \n");
+        printf("> (3) Lancia di ferro \n");
+        printf("> (4) Lancia d'acciaio \n");
+        printf("> (5) Lancia d'argento \n");
+        printf("> (6) Lancia magica[I] \n");
+        printf("> (7) Lancia magica[II] \n");
+        printf("> (8) Lancia magica[III] \n");
+        printf("> (9) Lancia magica[IV] \n");
+        printf("> (10) Lancia magica[V] \n");
+        printf("> (11) Indietro \n");
+        printf("+---~---~---~--[%d]--~---~---~---+\n", pg->Gold);
+    } while (scelta < 1 || scelta > 11);
+    switch (scelta)
+    {
+    case 1:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia di legno");
+                strcpy(inventario[i].Descrizione, "Una lancia di legno");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 10;
+                inventario[i].Durability = 10;
+                inventario[i].Damage = 10;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia di legno!\n");
+        Sleep(1000);
+        break;
+    case 2:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia di rame");
+                strcpy(inventario[i].Descrizione, "Una lancia di rame");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 20;
+                inventario[i].Durability = 20;
+                inventario[i].Damage = 20;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia di rame!\n");
+        Sleep(1000);
+        break;
+    case 3:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia di ferro");
+                strcpy(inventario[i].Descrizione, "Una lancia di ferro");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 30;
+                inventario[i].Durability = 30;
+                inventario[i].Damage = 30;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia di ferro!\n");
+        Sleep(1000);
+        break;
+    case 4:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia d'acciaio");
+                strcpy(inventario[i].Descrizione, "Una lancia d'acciaio");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 40;
+                inventario[i].Durability = 40;
+                inventario[i].Damage = 40;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia d'acciaio!\n");
+        Sleep(1000);
+        break;
+    case 5:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia d'argento");
+                strcpy(inventario[i].Descrizione, "Una lancia d'argento");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Comune";
+                inventario[i].Value = 50;
+                inventario[i].Durability = 50;
+                inventario[i].Damage = 50;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia d'argento!\n");
+        Sleep(1000);
+        break;
+    case 6:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia magica[I]");
+                strcpy(inventario[i].Descrizione, "Una lancia magica");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 100;
+                inventario[i].Durability = 100;
+                inventario[i].Damage = 100;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia magica[I]!\n");
+        Sleep(1000);
+        break;
+    case 7:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia magica[II]");
+                strcpy(inventario[i].Descrizione, "Una lancia magica");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 200;
+                inventario[i].Durability = 200;
+                inventario[i].Damage = 200;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia magica[II]!\n");
+        Sleep(1000);
+        break;
+    case 8:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia magica[III]");
+                strcpy(inventario[i].Descrizione, "Una lancia magica");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 300;
+                inventario[i].Durability = 300;
+                inventario[i].Damage = 300;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia magica[III]!\n");
+        Sleep(1000);
+        break;
+    case 9:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia magica[IV]");
+                strcpy(inventario[i].Descrizione, "Una lancia magica");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 400;
+                inventario[i].Durability = 400;
+                inventario[i].Damage = 400;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia magica[IV]!\n");
+        Sleep(1000);
+        break;
+    case 10:
+        for (int i = 0; i < SIZE_INV; i++)
+        {
+            if (inventario[i].nome == "vuoto")
+            {
+                strcpy(inventario[i].nome, "Lancia magica[V]");
+                strcpy(inventario[i].Descrizione, "Una lancia magica");
+                inventario[i].Tipo = "Lancia";
+                inventario[i].Rarity = "Rara";
+                inventario[i].Value = 500;
+                inventario[i].Durability = 500;
+                inventario[i].Damage = 500;
+                pg->Gold -= inventario[i].Value;
+                break;
+            }
+        }
+        SetColor(2); // verde
+        printf("Hai comprato la lancia magica[V]!\n");
+        Sleep(1000);
+        break;
+    case 11:
+        break;
+    default:
+        SetColor(4); // rosso
+        printf("Scelta non valida!\n");
+        Sleep(1000);
+        break;
+    }
+}
+
 void compra_armi(ST *pg, O *inventario, O *equipaggiamento)
 {
     int scelta;
