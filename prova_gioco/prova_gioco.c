@@ -4,25 +4,25 @@
 #include <string.h>
 #include <Windows.h>
 #include <math.h>
-#define SIZE_INV 21
+#define SIZE_INV 10
 #define SIZE_EQUIP 6
 #define SIZE_NOME 10
-#define SIZE_NOME_OGGETTO 20
+#define SIZE_NOME_OGGETTO 50
 #define SIZE_DESCRIZIONE 500
 #define SIZE_SENTENCE 1000
 
 typedef struct Personaggio
 {
-    char name[10];
-    int *lvl;
-    int *hp;
-    int *armor;
+    char name[SIZE_NOME];
+    int lvl;
+    int hp;
+    int armor;
 } ST;
 
 typedef struct Oggetto
 {
-    char nome[20];
-    char Descrizione[500];
+    char nome[SIZE_NOME_OGGETTO];
+    char Descrizione[SIZE_DESCRIZIONE];
     char *Tipo;
     const char *Rarity;
     int Value;
@@ -305,8 +305,16 @@ int equip_iniziale(ST *pg, O *equipaggiamento)
 }
 int zaino(ST *pg, O *inventario)
 {
-    char lvl_zaino = 'I';
+    int cont = 0;
     SetColor(5); // viola
+    for (int i = 0; i < SIZE_INV; i++)
+    {
+        if (strcmp(inventario[i].nome, "vuoto") == 0)
+        {
+            cont = cont + 1;
+            break;
+        }
+    }
     printf("+---~---~---~ZAINO~---~---~---+\n");
     // stampare la lista degli oggetti presenti nel zaino
     int i;
@@ -315,7 +323,7 @@ int zaino(ST *pg, O *inventario)
         // stampa nome oggetto
         printf("> %s\n", inventario[i].nome);
     }
-    printf("+---~---~---~[ %s ]~---~---~---+\n", lvl_zaino);
+    printf("+---~---~---~[ %d ]~---~---~---+\n", cont);
 }
 
 int main()
