@@ -31,11 +31,28 @@ typedef struct Oggetto
 
 } O;
 
+void clear()
+{
+    COORD topLeft = {0, 0};
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO screen;
+    DWORD written;
+
+    GetConsoleScreenBufferInfo(console, &screen);
+    FillConsoleOutputCharacterA(
+        console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
+    FillConsoleOutputAttribute(
+        console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+        screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
+    SetConsoleCursorPosition(console, topLeft);
+}
+
 void SetColor(unsigned short color)
 {
     HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hCon, color);
 }
+
 void print_decorate_choices(char sentence[SIZE_SENTENCE])
 {
     int length; // Create a variable to hold the length of the sentence
@@ -90,6 +107,7 @@ void print_decorate_choices(char sentence[SIZE_SENTENCE])
     }
     printf("\n\n");
 }
+
 void print_decorate_sentence(char sentence[SIZE_SENTENCE])
 {
     int Length;
@@ -143,8 +161,10 @@ void print_decorate_sentence(char sentence[SIZE_SENTENCE])
     }
     printf("+\n");
 }
+
 void inserimento_nome(ST *pg)
 {
+    clear();
     SetColor(9); // blu
     char sentence_nome[SIZE_SENTENCE] = ("Inserisci un nome per il tuo personaggio\n");
     print_decorate_sentence(sentence_nome);
@@ -168,6 +188,7 @@ void inserimento_nome(ST *pg)
         SetColor(2); // verde
         printf("nome inserito correttamente\n\n");
     }
+    clear();
     SetColor(9); // blu
     char sentence_conferma[SIZE_SENTENCE] = ("Lo confermi? (Y)Si o (N))No\n");
     print_decorate_choices(sentence_conferma);
@@ -197,11 +218,13 @@ void inserimento_nome(ST *pg)
         break;
     }
 }
+
 int statistiche_iniziali(ST *pg)
 {
     pg->hp = pg->hp + 25;
     pg->armor = pg->armor + 5;
 }
+
 int inv_zaino_iniziale(O *inventario)
 {
     int i;
@@ -230,6 +253,7 @@ int inv_zaino_iniziale(O *inventario)
         }
     }
 }
+
 int equip_iniziale(ST *pg, O *equipaggiamento)
 {
     int i;
@@ -303,9 +327,11 @@ int equip_iniziale(ST *pg, O *equipaggiamento)
         }
     }
 }
-int zaino(ST *pg, O *inventario)
+
+void print_zaino(O *inventario)
 {
     int cont = 0;
+    clear();
     SetColor(5); // viola
     for (int i = 0; i < SIZE_INV; i++)
     {
@@ -324,6 +350,28 @@ int zaino(ST *pg, O *inventario)
         printf("> %s\n", inventario[i].nome);
     }
     printf("+---~---~---~[ %d ]~---~---~---+\n", cont);
+}
+
+int zaino(ST *pg, O *inventario)
+{
+    print_zaino(inventario);
+    SetColor(9); // blu
+    char scelta[SIZE_SENTENCE] = ("Cosa vuoi fare? (1)Selezionare un oggetto, (2)Tornare indietro\n");
+    print_decorate_choices(scelta);
+    int scelta_zaino;
+    SetColor(7); // bianco
+    scanf("%d", &scelta_zaino);
+    switch (scelta_zaino)
+    {
+    case 1:
+        selezione_oggetto(pg, inventario);
+        break;
+    case 2:
+        break;
+    default:
+        printf("Scelta non valida\n");
+        break;
+    }
 }
 
 int main()
