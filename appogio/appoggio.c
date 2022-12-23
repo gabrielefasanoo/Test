@@ -438,6 +438,425 @@ void save(ST *pg, O *inventario, O *equipaggiamento)
     fclose(fp);
 }
 
+void load(ST *pg, O *inventario, O *equipaggiamento)
+{
+    FILE *fp;
+    fp = fopen("save.txt", "r");
+    if (fp == NULL)
+    {
+        printf("Errore nell'apertura del file!\n");
+        exit(1);
+    }
+    fscanf(fp, "%s", pg->name);
+    fscanf(fp, "%d", pg->Vita);
+    fscanf(fp, "%d", pg->Mana);
+    fscanf(fp, "%d", pg->Exp);
+    for (int i = 0; i < SIZE_INV; i++)
+    {
+        fscanf(fp, "%s", inventario[i].nome);
+        fscanf(fp, "%s", inventario[i].Tipo);
+        fscanf(fp, "%s", inventario[i].Rarity);
+        fscanf(fp, "%d", inventario[i].Value);
+        fscanf(fp, "%d", inventario[i].Durability);
+        fscanf(fp, "%d", inventario[i].Damage);
+    }
+    for (int i = 0; i < SIZE_EQUIP; i++)
+    {
+        fscanf(fp, "%s", equipaggiamento[i].nome);
+    }
+    fclose(fp);
+}
+
+void compra_spade(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[SPADE]~---~---~---+\n");
+        printf("> (1) Spada di legno \n");
+        printf("> (2) Spada di rame \n");
+        printf("> (3) Spada di ferro \n");
+        printf("> (4) Spada d'acciaio \n");
+        printf("> (5) Spada d'argento \n");
+        printf("> (6) Spada magica[I] \n");
+        printf("> (7) Spada magica[II] \n");
+        printf("> (8) Spada magica[III] \n");
+        printf("> (9) Spada magica[IV] \n");
+        printf("> (10) Spada magica[V] \n");
+        printf("> (11) Indietro \n");
+        printf("+---~---~---~[ %d ]~---~---~---+\n\n", pg->Gold);
+    } while (scelta < 1 || scelta > 11);
+    switch (scelta)
+    {
+    case 1:
+        if (pg->Gold >= 10)
+        {
+            pg->Gold -= 10;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada di legno");
+                    strcpy(inventario[i].Descrizione, "Spada di legno, fa quello che deve fare.");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 10;
+                    inventario[i].Durability = 10;
+                    inventario[i].Damage = 5;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 2:
+        if (pg->Gold >= 20)
+        {
+            pg->Gold -= 20;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada di rame");
+                    strcpy(inventario[i].Descrizione, "Spada di rame, non molto potente ma comunque utile");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 20;
+                    inventario[i].Durability = 20;
+                    inventario[i].Damage = 20;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 3:
+        if (pg->Gold >= 30)
+        {
+            pg->Gold -= 30;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada di ferro");
+                    strcpy(inventario[i].Descrizione, "Spada di ferro, di buona qualita'");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 30;
+                    inventario[i].Durability = 30;
+                    inventario[i].Damage = 30;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 4:
+        if (pg->Gold >= 40)
+        {
+            pg->Gold -= 40;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada d'acciaio");
+                    strcpy(inventario[i].Descrizione, "Spada d'acciaio, utilizzata da molti guerrieri");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 40;
+                    inventario[i].Durability = 40;
+                    inventario[i].Damage = 40;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 5:
+        if (pg->Gold >= 50)
+        {
+            pg->Gold -= 50;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada d'argento");
+                    strcpy(inventario[i].Descrizione, "Spada d'argento, una delle migliori armi");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 50;
+                    inventario[i].Durability = 50;
+                    inventario[i].Damage = 50;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 6:
+        if (pg->Gold >= 60)
+        {
+            pg->Gold -= 60;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada magica [I]");
+                    strcpy(inventario[i].Descrizione, "Spada magica, molto potente");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 60;
+                    inventario[i].Durability = 60;
+                    inventario[i].Damage = 60;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 7:
+        if (pg->Gold >= 70)
+        {
+            pg->Gold -= 70;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada magica [II]");
+                    strcpy(inventario[i].Descrizione, "Spada magica, di altissima qualita'");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 70;
+                    inventario[i].Durability = 70;
+                    inventario[i].Damage = 70;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 8:
+        if (pg->Gold >= 80)
+        {
+            pg->Gold -= 80;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada magica [III]");
+                    strcpy(inventario[i].Descrizione, "Spada magica, la piu' potente");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 80;
+                    inventario[i].Durability = 80;
+                    inventario[i].Damage = 80;
+                    break;
+                }
+            }
+        }
+        else
+        {   
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 9:
+        if (pg->Gold >= 90)
+        {
+            pg->Gold -= 90;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada magica [IV]");
+                    strcpy(inventario[i].Descrizione, "Spada magica, la piu' potente quasi fra tutte");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 90;
+                    inventario[i].Durability = 90;
+                    inventario[i].Damage = 90;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            SetColor(4); // rosso
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 10:
+        if (pg->Gold >= 100)
+        {
+            pg->Gold -= 100;
+            for (int i = 0; i < SIZE_INV; i++)
+            {
+                if (inventario[i].nome == "vuoto")
+                {
+                    strcpy(inventario[i].nome, "Spada magica [V]");
+                    strcpy(inventario[i].Descrizione, "Spada magica, la piu' potente fra tutte");
+                    inventario[i].Tipo = "Arma";
+                    inventario[i].Rarity = "Comune";
+                    inventario[i].Value = 100;
+                    inventario[i].Durability = 100;
+                    inventario[i].Damage = 100;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            printf("Non hai abbastanza soldi!\n");
+            Sleep(1000);
+        }
+        break;
+    case 11:
+        break;
+    default:
+        SetColor (4); //rosso
+        printf("Scelta non valida!\n");
+        Sleep(1000);
+        break;
+    }
+}
+void compra_armi(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[ARMI]~---~---~---+\n");
+        printf("> (1) Spade \n");
+        printf("> (2) Asce \n");
+        printf("> (3) Lancie \n");
+        printf("> (5) Mazze \n");
+        printf("> (5) Pugnali \n");
+        printf("> (6) Archi e frecce \n");
+        printf("> (7) Indietro \n");
+    } while (scelta < 1 || scelta > 7);
+    switch (scelta)
+    {
+    case 1:
+        compra_spade(pg, inventario, equipaggiamento);
+        break;
+    case 2:
+        compra_asce(pg, inventario, equipaggiamento);
+        break;
+    case 3:
+        compra_lancie(pg, inventario, equipaggiamento);
+        break;
+    case 4:
+        compra_mazze(pg, inventario, equipaggiamento);
+        break;
+    case 5:
+        compra_pugnali(pg, inventario, equipaggiamento);
+        break;
+    case 6:
+        compra_archi(pg, inventario, equipaggiamento);
+        break;
+    case 7:
+        break;
+    }
+}
+
+void compra_oggetti(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[NEGOZIO]~---~---~---+\n");
+        printf("> (1) Armi \n");
+        printf("> (2) Armature \n");
+        printf("> (3) Consumabili \n");
+        printf("> (4) Oggetti speciali \n");
+        printf("> (5) Indietro \n");
+    } while (scelta < 1 || scelta > 5);
+    switch (scelta)
+    {
+    case 1:
+        compra_armi(pg, inventario, equipaggiamento);
+        break;
+    case 2:
+        compra_armature(pg, inventario, equipaggiamento);
+        break;
+    case 3:
+        compra_consumabili(pg, inventario, equipaggiamento);
+        break;
+    case 4:
+        compra_oggetti_speciali(pg, inventario, equipaggiamento);
+        break;
+    case 5:
+        break;
+    }
+}
+
+void negozio(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[NEGOZIO]~---~---~---+\n");
+        printf("> (1) Compra oggetti \n");
+        printf("> (2) Vendi oggetti \n");
+        printf("> (3) Indietro \n");
+    } while (scelta < 1 || scelta > 3);
+    switch (scelta)
+    {
+    case 1:
+        compra_oggetti(pg, inventario, equipaggiamento);
+        break;
+    case 2:
+        vendi_oggetti(pg, inventario, equipaggiamento);
+        break;
+    case 3:
+        break;
+    }
+}
+
 void avventura(ST *pg, O *inventario, O *equipaggiamento)
 {
     int scelta;
@@ -452,8 +871,7 @@ void avventura(ST *pg, O *inventario, O *equipaggiamento)
         printf("> (4) Equipaggiamento \n");
         printf("> (5) Negozio \n");
         printf("> (6) Indietro \n");
-    }
-    while (scelta < 1 || scelta > 6);
+    } while (scelta < 1 || scelta > 6);
     switch (scelta)
     {
     case 1:
@@ -487,8 +905,9 @@ void menu(ST *pg, O *inventario, O *equipaggiamento)
         SetColor(5); // viola
         printf("+---~---~---~[MENU]~---~---~---+\n");
         printf("> (1) Avventura \n");
-        printf("> (2) Salva \n");
-        printf("> (3) Esci \n");
+        printf("> (2) Load \n");
+        printf("> (3) Salva \n");
+        printf("> (4) Esci \n");
         printf("+---~[HP:%d]~[%dxp]~[MP:%d]~---+\n\n", pg->Vita, pg->Exp, pg->Mana);
     } while (scelta < 1 || scelta > 4);
     switch (scelta)
@@ -499,10 +918,16 @@ void menu(ST *pg, O *inventario, O *equipaggiamento)
     case 2:
         clear();
         SetColor(2); // verde
+        printf("Caricamento in corso...\n");
+        load(pg, inventario, equipaggiamento);
+        break;
+    case 3:
+        clear();
+        SetColor(2); // verde
         printf("Salvataggio in corso...\n");
         save(pg, inventario, equipaggiamento);
         break;
-    case 3:
+    case 4:
         clear();
         SetColor(2); // verde
         printf("Grazie per aver giocato!\n");
