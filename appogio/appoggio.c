@@ -182,7 +182,6 @@ void titolo_inizio()
 
 void inserimento_nome(ST *pg)
 {
-    clear();
     SetColor(9); // blu
     char sentence_nome[SIZE_SENTENCE] = ("Inserisci un nome per il tuo personaggio\n");
     print_decorate_sentence(sentence_nome);
@@ -206,7 +205,6 @@ void inserimento_nome(ST *pg)
         SetColor(2); // verde
         printf("nome inserito correttamente\n\n");
     }
-    clear();
     SetColor(9); // blu
     char sentence_conferma[SIZE_SENTENCE] = ("Lo confermi? (Y)Si o (N))No\n");
     print_decorate_choices(sentence_conferma);
@@ -237,14 +235,14 @@ void inserimento_nome(ST *pg)
     }
 }
 
-int statistiche_iniziali(ST *pg)
+void statistiche_iniziali(ST *pg)
 {
     pg->Vita_Max = pg->Vita_Max + 25;
     pg->Difesa = pg->Difesa + 5;
     pg->Mana_Max = pg->Mana_Max + 10;
 }
 
-int inv_iniziale(O *inventario)
+void inv_iniziale(O *inventario)
 {
     int i;
     for (i = 0; i < SIZE_INV; i++)
@@ -273,7 +271,7 @@ int inv_iniziale(O *inventario)
     }
 }
 
-int equip_iniziale(ST *pg, O *equipaggiamento)
+void equip_iniziale(ST *pg, O *equipaggiamento)
 {
     int i;
     for (i = 0; i < SIZE_EQUIP; i++)
@@ -371,6 +369,149 @@ void print_zaino(O *inventario)
     printf("+---~---~---~[ %d ]~---~---~---+\n\n", cont);
 }
 
+void print_equipaggiamento(O *equipaggiamento)
+{
+    int cont = 0;
+    clear();
+    SetColor(5); // viola
+    for (int i = 0; i < SIZE_EQUIP; i++)
+    {
+        if (strcmp(equipaggiamento[i].nome, "vuoto") == 0)
+        {
+            cont = cont + 1;
+            break;
+        }
+    }
+    printf("+---~---~---~EQUIPAGGIAMENTO~---~---~---+\n");
+    int i;
+    for (i = 0; i < SIZE_EQUIP; i++)
+    {
+        // stampa nome oggetto
+        printf("> %s\n", i + 1, equipaggiamento[i].nome);
+    }
+    printf("+---~---~---~[ %d ]~---~---~---+\n\n", cont);
+}
+
+void stato_personaggio(ST *pg)
+{
+    clear();
+    SetColor(5); // viola
+    printf("+---~---~STATO PERSONAGGIO~---~---+\n");
+    printf("> Nome: %s\n", pg->name);
+    printf("> HP: %d\n", pg->Vita);
+    printf("> MP: %d\n", pg->Mana);
+    printf("> XP: %d\n", pg->Exp);
+    printf("+---~---~---~---[§]---~---~---~---+\n\n");
+}
+
+void save(ST *pg, O *inventario, O *equipaggiamento)
+{
+    FILE *fp;
+    fp = fopen("save.txt", "w");
+    if (fp == NULL)
+    {
+        printf("Errore nell'apertura del file!\n");
+        exit(1);
+    }
+    fprintf(fp, "%s", pg->name);
+    fprintf(fp, "%d", pg->Vita);
+    fprintf(fp, "%d", pg->Mana);
+    fprintf(fp, "%d", pg->Exp);
+    for (int i = 0; i < SIZE_INV; i++)
+    {
+        fprintf(fp, "%s", inventario[i].nome);
+        fprintf(fp, "%s", inventario[i].Tipo);
+        fprintf(fp, "%s", inventario[i].Rarity);
+        fprintf(fp, "%d", inventario[i].Value);
+        fprintf(fp, "%d", inventario[i].Durability);
+        fprintf(fp, "%d", inventario[i].Damage);
+    }
+    for (int i = 0; i < SIZE_EQUIP; i++)
+    {
+        fprintf(fp, "%s", equipaggiamento[i].nome);
+        fprintf(fp, "%s", equipaggiamento[i].Tipo);
+        fprintf(fp, "%s", equipaggiamento[i].Rarity);
+        fprintf(fp, "%d", equipaggiamento[i].Value);
+        fprintf(fp, "%d", equipaggiamento[i].Durability);
+        fprintf(fp, "%d", equipaggiamento[i].Damage);
+    }
+    fclose(fp);
+}
+
+void avventura(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(5); // viola
+        printf("+---~---~---~[AVVENTURA]~---~---~---+\n");
+        printf("> (1) Entra nel Dungeon \n");
+        printf("> (2) Stato Personaggio \n");
+        printf("> (3) Zaino \n");
+        printf("> (4) Equipaggiamento \n");
+        printf("> (5) Negozio \n");
+        printf("> (6) Indietro \n");
+    }
+    while (scelta < 1 || scelta > 6);
+    switch (scelta)
+    {
+    case 1:
+        dungeon(pg, inventario, equipaggiamento);
+        break;
+    case 2:
+        stato_personaggio(pg);
+        break;
+    case 3:
+        print_zaino(inventario);
+        break;
+    case 4:
+        print_equipaggiamento(equipaggiamento);
+        break;
+    case 5:
+        negozio(pg, inventario, equipaggiamento);
+        break;
+    case 6:
+        break;
+    }
+}
+
+void menu(ST *pg, O *inventario, O *equipaggiamento)
+{
+    int scelta;
+    do
+    {
+        clear();
+        SetColor(2); // verde
+        printf("Benvenuto %s!\n", pg->name);
+        SetColor(5); // viola
+        printf("+---~---~---~[MENU]~---~---~---+\n");
+        printf("> (1) Avventura \n");
+        printf("> (2) Salva \n");
+        printf("> (3) Esci \n");
+        printf("+---~[HP:%d]~[%dxp]~[MP:%d]~---+\n\n", pg->Vita, pg->Exp, pg->Mana);
+    } while (scelta < 1 || scelta > 4);
+    switch (scelta)
+    {
+    case 1:
+        avventura(pg, inventario, equipaggiamento);
+        break;
+    case 2:
+        clear();
+        SetColor(2); // verde
+        printf("Salvataggio in corso...\n");
+        save(pg, inventario, equipaggiamento);
+        break;
+    case 3:
+        clear();
+        SetColor(2); // verde
+        printf("Grazie per aver giocato!\n");
+        exit(0);
+        break;
+    default:
+        break;
+    }
+}
 
 int main()
 {
@@ -386,5 +527,6 @@ int main()
     equip_iniziale(&pg, equipaggiamento);
     SetColor(2); // verde
     printf("debug riuscito...");
+    menu(&pg, inventario, equipaggiamento);
     return 0;
 }

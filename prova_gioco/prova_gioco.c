@@ -398,7 +398,7 @@ void equipaggiamento_oggetti(ST *pg, O *inventario, O *equipaggiamento, int i)
     scanf("%s", risposta);
     if (strcmp(risposta, "Y") == 0 || strcmp(risposta, "y") == 0)
     {
-        //equipaggiamento
+        // equipaggiamento
         if (strcmp(equipaggiamento[i].nome, "Arma") == 0)
         {
             pg->Danno = pg->Danno + equipaggiamento[i].Damage;
@@ -494,66 +494,63 @@ void usa_oggetto(ST *pg, O *inventario, O *equipaggiamento, int i)
     {
         equipaggiamento_oggetti(pg, inventario, equipaggiamento, i);
     }
-    // se l'oggetto è un pozione
-    if (strcmp(inventario[i].Tipo, "Pozione") == 0)
-    {
-        // se la pozione è una pozione di vita
-        if (strcmp(inventario[i].nome, "Pozione di guarigione") == 0)
-        {
-            // se il pg ha meno del suo massimo di vita
-            if (pg->Vita < pg->Vita_Max)
-            {
-                pg->Vita = pg->Vita + 10;
-                if (pg->Vita > pg->Vita_Max)
-                {
-                    pg->Vita = pg->Vita_Max;
-                }
-                SetColor(5); // viola
-                printf("Hai bevuto la pozione di guardione, ora hai %d punti vita\n", pg->Vita);
-                // rimuovo l'oggetto dallo zaino
-                strcpy(inventario[i].nome, "vuoto");
-                strcpy(inventario[i].Descrizione, "");
-                inventario[i].Tipo = "";
-                inventario[i].Rarity = "";
-                inventario[i].Value = 0;
-                inventario[i].Durability = 0;
-                inventario[i].Damage = 0;
 
-                inventario[i].Damage = 0;
-            }
-            else
-            {
-                SetColor(5); // viola
-                printf("Hai gia' la vita al massimo\n");
-            }
-        }
-        // se la pozione è una pozione di mana
-        if (strcmp(inventario[i].nome, "Pozione di mana") == 0)
+    // se la pozione è una pozione di vita
+    if (strcmp(inventario[i].nome, "Pozione di guarigione") == 0)
+    {
+        // se il pg ha meno del suo massimo di vita
+        if (pg->Vita < pg->Vita_Max)
         {
-            // se il pg ha meno del suo massimo di mana
-            if (pg->Mana < pg->Mana_Max)
+            pg->Vita = pg->Vita + 10;
+            if (pg->Vita > pg->Vita_Max)
             {
-                pg->Mana = pg->Mana + 10;
-                if (pg->Mana > pg->Mana_Max)
-                {
-                    pg->Mana = pg->Mana_Max;
-                }
-                SetColor(5); // viola
-                printf("Hai bevuto la pozione di mana, ora hai %d punti mana\n", pg->Mana);
-                // rimuovo l'oggetto dallo zaino
-                strcpy(inventario[i].nome, "vuoto");
-                strcpy(inventario[i].Descrizione, "");
-                inventario[i].Tipo = "";
-                inventario[i].Rarity = "";
-                inventario[i].Value = 0;
-                inventario[i].Durability = 0;
-                inventario[i].Damage = 0;
+                pg->Vita = pg->Vita_Max;
             }
-            else
+            SetColor(5); // viola
+            printf("Hai bevuto la pozione di guardione, ora hai %d punti vita\n", pg->Vita);
+            // rimuovo l'oggetto dallo zaino
+            strcpy(inventario[i].nome, "vuoto");
+            strcpy(inventario[i].Descrizione, "");
+            inventario[i].Tipo = "";
+            inventario[i].Rarity = "";
+            inventario[i].Value = 0;
+            inventario[i].Durability = 0;
+            inventario[i].Damage = 0;
+
+            inventario[i].Damage = 0;
+        }
+        else
+        {
+            SetColor(5); // viola
+            printf("Hai gia' la vita al massimo\n");
+        }
+    }
+    // se la pozione è una pozione di mana
+    if (strcmp(inventario[i].nome, "Pozione di mana") == 0)
+    {
+        // se il pg ha meno del suo massimo di mana
+        if (pg->Mana < pg->Mana_Max)
+        {
+            pg->Mana = pg->Mana + 10;
+            if (pg->Mana > pg->Mana_Max)
             {
-                SetColor(5); // viola
-                printf("Hai gia' il mana al massimo\n");
+                pg->Mana = pg->Mana_Max;
             }
+            SetColor(5); // viola
+            printf("Hai bevuto la pozione di mana, ora hai %d punti mana\n", pg->Mana);
+            // rimuovo l'oggetto dallo zaino
+            strcpy(inventario[i].nome, "vuoto");
+            strcpy(inventario[i].Descrizione, "");
+            inventario[i].Tipo = "";
+            inventario[i].Rarity = "";
+            inventario[i].Value = 0;
+            inventario[i].Durability = 0;
+            inventario[i].Damage = 0;
+        }
+        else
+        {
+            SetColor(5); // viola
+            printf("Hai gia' il mana al massimo\n");
         }
     }
 }
@@ -579,7 +576,7 @@ void selezione_oggetto(ST *pg, O *inventario, O *equipaggiamento)
             selezione_oggetto(pg, inventario, equipaggiamento);
         }
         if (i == oggetto - 1)
-        {   
+        {
             clear();
             SetColor(5); // viola
             printf("Hai selezionato: %s\n", inventario[i].nome);
@@ -592,7 +589,7 @@ void selezione_oggetto(ST *pg, O *inventario, O *equipaggiamento)
             switch (scelta_utilizzo)
             {
             case 1:
-                equipaggiamento_oggetti(pg,  inventario, equipaggiamento, i);
+                equipaggiamento_oggetti(pg, inventario, equipaggiamento, i);
                 break;
             case 2:
                 usa_oggetto(pg, inventario, equipaggiamento, i);
