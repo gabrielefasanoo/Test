@@ -5832,10 +5832,149 @@ void equipaggiamento_arma(ST *pg, O *inventario, O *equipaggiamento)
     {
         return;
     }
-    else if (inventario[scelta - 1].Tipo == "Arma")
+    // se l'ogetto è di tipo arma lo scambia con quello in posizione 1
+    if (inventario[scelta - 1].Tipo == "Arma")
     {
+        if (equipaggiamento[1].Tipo == "Scudo")
+        {
+            O temp;
+            printf("Vuoi scambiare %s con %s? (Y) Si (N) No \n", inventario[scelta - 1].nome, equipaggiamento[1].nome);
+            char scelta_2;
+            scanf("%d", &scelta_2);
+            switch (scelta_2)
+            {
+            case 'Y':
+                strcpy(temp.nome, equipaggiamento[1].nome);
+                strcpy(temp.Descrizione, equipaggiamento[1].Descrizione);
+                temp.Tipo = equipaggiamento[1].Tipo;
+                temp.Rarity = equipaggiamento[1].Rarity;
+                temp.Value = equipaggiamento[1].Value;
+                temp.Durability = equipaggiamento[1].Durability;
+                temp.Damage = equipaggiamento[1].Damage;
+                temp.Quantity = equipaggiamento[1].Quantity;
 
-        // copio l'arma nell'equipaggiamento
+                strcpy(equipaggiamento[1].nome, inventario[scelta - 1].nome);
+                strcpy(equipaggiamento[1].Descrizione, inventario[scelta - 1].Descrizione);
+                equipaggiamento[1].Tipo = inventario[scelta - 1].Tipo;
+                equipaggiamento[1].Rarity = inventario[scelta - 1].Rarity;
+                equipaggiamento[1].Value = inventario[scelta - 1].Value;
+                equipaggiamento[1].Durability = inventario[scelta - 1].Durability;
+                equipaggiamento[1].Damage = inventario[scelta - 1].Damage;
+                equipaggiamento[1].Quantity = inventario[scelta - 1].Quantity;
+
+                strcpy(inventario[scelta - 1].nome, temp.nome);
+                strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+                inventario[scelta - 1].Tipo = temp.Tipo;
+                inventario[scelta - 1].Rarity = temp.Rarity;
+                inventario[scelta - 1].Value = temp.Value;
+                inventario[scelta - 1].Durability = temp.Durability;
+                inventario[scelta - 1].Damage = temp.Damage;
+                inventario[scelta - 1].Quantity = temp.Quantity;
+                break;
+            case 'N':
+                strcpy(temp.nome, equipaggiamento[0].nome);
+                strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+                temp.Tipo = equipaggiamento[0].Tipo;
+                temp.Rarity = equipaggiamento[0].Rarity;
+                temp.Value = equipaggiamento[0].Value;
+                temp.Durability = equipaggiamento[0].Durability;
+                temp.Damage = equipaggiamento[0].Damage;
+                temp.Quantity = equipaggiamento[0].Quantity;
+
+                strcpy(equipaggiamento[0].nome, inventario[scelta - 1].nome);
+                strcpy(equipaggiamento[0].Descrizione, inventario[scelta - 1].Descrizione);
+                equipaggiamento[0].Tipo = inventario[scelta - 1].Tipo;
+                equipaggiamento[0].Rarity = inventario[scelta - 1].Rarity;
+                equipaggiamento[0].Value = inventario[scelta - 1].Value;
+                equipaggiamento[0].Durability = inventario[scelta - 1].Durability;
+                equipaggiamento[0].Damage = inventario[scelta - 1].Damage;
+                equipaggiamento[0].Quantity = inventario[scelta - 1].Quantity;
+
+                strcpy(inventario[scelta - 1].nome, temp.nome);
+                strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+                inventario[scelta - 1].Tipo = temp.Tipo;
+                inventario[scelta - 1].Rarity = temp.Rarity;
+                inventario[scelta - 1].Value = temp.Value;
+                inventario[scelta - 1].Durability = temp.Durability;
+                inventario[scelta - 1].Damage = temp.Damage;
+                inventario[scelta - 1].Quantity = temp.Quantity;
+                break;
+            case 'y':
+                strcpy(temp.nome, equipaggiamento[1].nome);
+                strcpy(temp.Descrizione, equipaggiamento[1].Descrizione);
+                temp.Tipo = equipaggiamento[1].Tipo;
+                temp.Rarity = equipaggiamento[1].Rarity;
+                temp.Value = equipaggiamento[1].Value;
+                temp.Durability = equipaggiamento[1].Durability;
+                temp.Damage = equipaggiamento[1].Damage;
+                temp.Quantity = equipaggiamento[1].Quantity;
+
+                strcpy(equipaggiamento[1].nome, inventario[scelta - 1].nome);
+                strcpy(equipaggiamento[1].Descrizione, inventario[scelta - 1].Descrizione);
+                equipaggiamento[1].Tipo = inventario[scelta - 1].Tipo;
+                equipaggiamento[1].Rarity = inventario[scelta - 1].Rarity;
+                equipaggiamento[1].Value = inventario[scelta - 1].Value;
+                equipaggiamento[1].Durability = inventario[scelta - 1].Durability;
+                equipaggiamento[1].Damage = inventario[scelta - 1].Damage;
+                equipaggiamento[1].Quantity = inventario[scelta - 1].Quantity;
+
+                strcpy(inventario[scelta - 1].nome, temp.nome);
+                strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+                inventario[scelta - 1].Tipo = temp.Tipo;
+                inventario[scelta - 1].Rarity = temp.Rarity;
+                inventario[scelta - 1].Value = temp.Value;
+                inventario[scelta - 1].Durability = temp.Durability;
+                inventario[scelta - 1].Damage = temp.Damage;
+                inventario[scelta - 1].Quantity = temp.Quantity;
+                break;
+            case 'n':
+                strcpy(temp.nome, equipaggiamento[0].nome);
+                strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+                temp.Tipo = equipaggiamento[0].Tipo;
+                temp.Rarity = equipaggiamento[0].Rarity;
+                temp.Value = equipaggiamento[0].Value;
+                temp.Durability = equipaggiamento[0].Durability;
+                temp.Damage = equipaggiamento[0].Damage;
+                temp.Quantity = equipaggiamento[0].Quantity;
+
+                strcpy(equipaggiamento[0].nome, inventario[scelta - 1].nome);
+                strcpy(equipaggiamento[0].Descrizione, inventario[scelta - 1].Descrizione);
+                equipaggiamento[0].Tipo = inventario[scelta - 1].Tipo;
+                equipaggiamento[0].Rarity = inventario[scelta - 1].Rarity;
+                equipaggiamento[0].Value = inventario[scelta - 1].Value;
+                equipaggiamento[0].Durability = inventario[scelta - 1].Durability;
+                equipaggiamento[0].Damage = inventario[scelta - 1].Damage;
+                equipaggiamento[0].Quantity = inventario[scelta - 1].Quantity;
+
+                strcpy(inventario[scelta - 1].nome, temp.nome);
+                strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+                inventario[scelta - 1].Tipo = temp.Tipo;
+                inventario[scelta - 1].Rarity = temp.Rarity;
+                inventario[scelta - 1].Value = temp.Value;
+                inventario[scelta - 1].Durability = temp.Durability;
+                inventario[scelta - 1].Damage = temp.Damage;
+                inventario[scelta - 1].Quantity = temp.Quantity;
+            default:
+
+                SetColor(4); // rosso
+                printf("Scelta non valida!\n");
+                Sleep(1000);
+                break;
+            }
+        }
+    }
+    else
+    {
+        O temp;
+        strcpy(temp.nome, equipaggiamento[0].nome);
+        strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+        temp.Tipo = equipaggiamento[0].Tipo;
+        temp.Rarity = equipaggiamento[0].Rarity;
+        temp.Value = equipaggiamento[0].Value;
+        temp.Durability = equipaggiamento[0].Durability;
+        temp.Damage = equipaggiamento[0].Damage;
+        temp.Quantity = equipaggiamento[0].Quantity;
+
         strcpy(equipaggiamento[0].nome, inventario[scelta - 1].nome);
         strcpy(equipaggiamento[0].Descrizione, inventario[scelta - 1].Descrizione);
         equipaggiamento[0].Tipo = inventario[scelta - 1].Tipo;
@@ -5843,25 +5982,16 @@ void equipaggiamento_arma(ST *pg, O *inventario, O *equipaggiamento)
         equipaggiamento[0].Value = inventario[scelta - 1].Value;
         equipaggiamento[0].Durability = inventario[scelta - 1].Durability;
         equipaggiamento[0].Damage = inventario[scelta - 1].Damage;
+        equipaggiamento[0].Quantity = inventario[scelta - 1].Quantity;
 
-        // svuoto l'inventario
-
-        strcpy(inventario[scelta - 1].nome, "vuoto");
-        strcpy(inventario[scelta - 1].Descrizione, "");
-        inventario[scelta - 1].Tipo = "";
-        inventario[scelta - 1].Rarity = "";
-        inventario[scelta - 1].Value = 0;
-        inventario[scelta - 1].Durability = 0;
-        inventario[scelta - 1].Damage = 0;
-        SetColor(2); // verde
-        printf("Hai equipaggiato %s!\n", inventario[scelta - 1].nome);
-        Sleep(1000);
-    }
-    else
-    {
-        SetColor(4); // rosso
-        printf("Scelta non valida!\n");
-        Sleep(1000);
+        strcpy(inventario[scelta - 1].nome, temp.nome);
+        strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+        inventario[scelta - 1].Tipo = temp.Tipo;
+        inventario[scelta - 1].Rarity = temp.Rarity;
+        inventario[scelta - 1].Value = temp.Value;
+        inventario[scelta - 1].Durability = temp.Durability;
+        inventario[scelta - 1].Damage = temp.Damage;
+        inventario[scelta - 1].Quantity = temp.Quantity;
     }
 }
 
@@ -5879,9 +6009,6 @@ void equipaggiamento_armatura(ST *pg, O *inventario, O *equipaggiamento)
             {
                 printf("> (%d) %s \n", i + 1, inventario[i].nome);
             }
-            {
-                printf("> (%d) %s \n", i + 1, inventario[i].nome);
-            }
         }
         printf("> (%d) Indietro \n", SIZE_INV + 1);
         printf("+---~---~---~--[ § ]--~---~---~---+\n");
@@ -5891,27 +6018,168 @@ void equipaggiamento_armatura(ST *pg, O *inventario, O *equipaggiamento)
     {
         return;
     }
-    else if (inventario[scelta - 1].Tipo == "Elmo" || inventario[scelta - 1].Tipo == "Corazza" || inventario[scelta - 1].Tipo == "Pantaloni" || inventario[scelta - 1].Tipo == "Stivali" || inventario[scelta - 1].Tipo == "Scudo")
+    // se è un oggetto di tipo elmo lo scambia con quello in posizione 3
+    else if (inventario[scelta - 1].Tipo == "Elmo")
     {
+        // copio il vecchio elmo in un equipaggiamento temporaneo
+        O temp;
+        strcpy(temp.nome, equipaggiamento[0].nome);
+        strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+        temp.Tipo = equipaggiamento[0].Tipo;
+        temp.Rarity = equipaggiamento[0].Rarity;
+        temp.Value = equipaggiamento[0].Value;
+        temp.Durability = equipaggiamento[0].Durability;
+        temp.Damage = equipaggiamento[0].Damage;
+        temp.Quantity = equipaggiamento[0].Quantity;
 
         // copio l'arma nell'equipaggiamento
-        strcpy(equipaggiamento[1].nome, inventario[scelta - 1].nome);
-        strcpy(equipaggiamento[1].Descrizione, inventario[scelta - 1].Descrizione);
-        equipaggiamento[1].Tipo = inventario[scelta - 1].Tipo;
-        equipaggiamento[1].Rarity = inventario[scelta - 1].Rarity;
-        equipaggiamento[1].Value = inventario[scelta - 1].Value;
-        equipaggiamento[1].Durability = inventario[scelta - 1].Durability;
-        equipaggiamento[1].Damage = inventario[scelta - 1].Damage;
+        strcpy(equipaggiamento[3].nome, inventario[scelta - 1].nome);
+        strcpy(equipaggiamento[3].Descrizione, inventario[scelta - 1].Descrizione);
+        equipaggiamento[3].Tipo = inventario[scelta - 1].Tipo;
+        equipaggiamento[3].Rarity = inventario[scelta - 1].Rarity;
+        equipaggiamento[3].Value = inventario[scelta - 1].Value;
+        equipaggiamento[3].Durability = inventario[scelta - 1].Durability;
+        equipaggiamento[3].Damage = inventario[scelta - 1].Damage;
 
-        // svuoto l'inventario
+        // copio l'equipaggiamento temporaneo nell'inventario
+        strcpy(inventario[scelta - 1].nome, temp.nome);
+        strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+        inventario[scelta - 1].Tipo = temp.Tipo;
+        inventario[scelta - 1].Rarity = temp.Rarity;
+        inventario[scelta - 1].Value = temp.Value;
+        inventario[scelta - 1].Durability = temp.Durability;
+        inventario[scelta - 1].Damage = temp.Damage;
+        inventario[scelta - 1].Quantity = temp.Quantity;
+    }
+    // se è un oggetto di tipo corazza lo scambia con quello in posizione 4
+    else if (inventario[scelta - 1].Tipo == "Corazza")
+    {
+        // copio il vecchio elmo in un equipaggiamento temporaneo
+        O temp;
+        strcpy(temp.nome, equipaggiamento[0].nome);
+        strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+        temp.Tipo = equipaggiamento[0].Tipo;
+        temp.Rarity = equipaggiamento[0].Rarity;
+        temp.Value = equipaggiamento[0].Value;
+        temp.Durability = equipaggiamento[0].Durability;
+        temp.Damage = equipaggiamento[0].Damage;
+        temp.Quantity = equipaggiamento[0].Quantity;
 
-        strcpy(inventario[scelta - 1].nome, "vuoto");
-        strcpy(inventario[scelta - 1].Descrizione, "");
-        inventario[scelta - 1].Tipo = "";
-        inventario[scelta - 1].Rarity = "";
-        inventario[scelta - 1].Value = 0;
-        inventario[scelta - 1].Durability = 0;
-        inventario[scelta - 1].Damage = 0;
+        // copio l'arma nell'equipaggiamento
+        strcpy(equipaggiamento[4].nome, inventario[scelta - 1].nome);
+        strcpy(equipaggiamento[4].Descrizione, inventario[scelta - 1].Descrizione);
+        equipaggiamento[4].Tipo = inventario[scelta - 1].Tipo;
+        equipaggiamento[4].Rarity = inventario[scelta - 1].Rarity;
+        equipaggiamento[4].Value = inventario[scelta - 1].Value;
+        equipaggiamento[4].Durability = inventario[scelta - 1].Durability;
+        equipaggiamento[4].Damage = inventario[scelta - 1].Damage;
+
+        // copio l'equipaggiamento temporaneo nell'inventario
+        strcpy(inventario[scelta - 1].nome, temp.nome);
+        strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+        inventario[scelta - 1].Tipo = temp.Tipo;
+        inventario[scelta - 1].Rarity = temp.Rarity;
+        inventario[scelta - 1].Value = temp.Value;
+        inventario[scelta - 1].Durability = temp.Durability;
+        inventario[scelta - 1].Damage = temp.Damage;
+        inventario[scelta - 1].Quantity = temp.Quantity;
+    }
+    // se è un oggetto di tipo pantaloni lo scambia con quello in posizione 5
+    else if (inventario[scelta - 1].Tipo == "Pantaloni")
+    {
+        // copio il vecchio elmo in un equipaggiamento temporaneo
+        O temp;
+        strcpy(temp.nome, equipaggiamento[0].nome);
+        strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+        temp.Tipo = equipaggiamento[0].Tipo;
+        temp.Rarity = equipaggiamento[0].Rarity;
+        temp.Value = equipaggiamento[0].Value;
+        temp.Durability = equipaggiamento[0].Durability;
+        temp.Damage = equipaggiamento[0].Damage;
+        temp.Quantity = equipaggiamento[0].Quantity;
+
+        // copio l'arma nell'equipaggiamento
+        strcpy(equipaggiamento[5].nome, inventario[scelta - 1].nome);
+        strcpy(equipaggiamento[5].Descrizione, inventario[scelta - 1].Descrizione);
+        equipaggiamento[5].Tipo = inventario[scelta - 1].Tipo;
+        equipaggiamento[5].Rarity = inventario[scelta - 1].Rarity;
+        equipaggiamento[5].Value = inventario[scelta - 1].Value;
+        equipaggiamento[5].Durability = inventario[scelta - 1].Durability;
+        equipaggiamento[5].Damage = inventario[scelta - 1].Damage;
+
+        // copio l'equipaggiamento temporaneo nell'inventario
+        strcpy(inventario[scelta - 1].nome, temp.nome);
+        strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+        inventario[scelta - 1].Tipo = temp.Tipo;
+        inventario[scelta - 1].Rarity = temp.Rarity;
+        inventario[scelta - 1].Value = temp.Value;
+        inventario[scelta - 1].Durability = temp.Durability;
+        inventario[scelta - 1].Damage = temp.Damage;
+        inventario[scelta - 1].Quantity = temp.Quantity;
+    }
+    // se è un oggetto di tipo scarpe lo scambia con quello in posizione 6
+    else if (inventario[scelta - 1].Tipo == "Scarpe")
+    {
+        // copio il vecchio elmo in un equipaggiamento temporaneo
+        O temp;
+        strcpy(temp.nome, equipaggiamento[0].nome);
+        strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+        temp.Tipo = equipaggiamento[0].Tipo;
+        temp.Rarity = equipaggiamento[0].Rarity;
+        temp.Value = equipaggiamento[0].Value;
+        temp.Durability = equipaggiamento[0].Durability;
+        temp.Damage = equipaggiamento[0].Damage;
+        temp.Quantity = equipaggiamento[0].Quantity;
+
+        // copio l'arma nell'equipaggiamento
+        strcpy(equipaggiamento[6].nome, inventario[scelta - 1].nome);
+        strcpy(equipaggiamento[6].Descrizione, inventario[scelta - 1].Descrizione);
+        equipaggiamento[6].Tipo = inventario[scelta - 1].Tipo;
+        equipaggiamento[6].Rarity = inventario[scelta - 1].Rarity;
+        equipaggiamento[6].Value = inventario[scelta - 1].Value;
+        equipaggiamento[6].Durability = inventario[scelta - 1].Durability;
+        equipaggiamento[6].Damage = inventario[scelta - 1].Damage;
+
+        // copio l'equipaggiamento temporaneo nell'inventario
+        strcpy(inventario[scelta - 1].nome, temp.nome);
+        strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+        inventario[scelta - 1].Tipo = temp.Tipo;
+        inventario[scelta - 1].Rarity = temp.Rarity;
+        inventario[scelta - 1].Value = temp.Value;
+        inventario[scelta - 1].Durability = temp.Durability;
+    }
+    // se è un oggetto di tipo scudo lo scambia con quello in posizione 2
+    else if (inventario[scelta - 1].Tipo == "Scudo")
+    {
+        // copio il vecchio elmo in un equipaggiamento temporaneo
+        O temp;
+        strcpy(temp.nome, equipaggiamento[0].nome);
+        strcpy(temp.Descrizione, equipaggiamento[0].Descrizione);
+        temp.Tipo = equipaggiamento[0].Tipo;
+        temp.Rarity = equipaggiamento[0].Rarity;
+        temp.Value = equipaggiamento[0].Value;
+        temp.Durability = equipaggiamento[0].Durability;
+        temp.Damage = equipaggiamento[0].Damage;
+        temp.Quantity = equipaggiamento[0].Quantity;
+
+        // copio l'arma nell'equipaggiamento
+        strcpy(equipaggiamento[2].nome, inventario[scelta - 1].nome);
+        strcpy(equipaggiamento[2].Descrizione, inventario[scelta - 1].Descrizione);
+        equipaggiamento[2].Tipo = inventario[scelta - 1].Tipo;
+        equipaggiamento[2].Rarity = inventario[scelta - 1].Rarity;
+        equipaggiamento[2].Value = inventario[scelta - 1].Value;
+        equipaggiamento[2].Durability = inventario[scelta - 1].Durability;
+        equipaggiamento[2].Damage = inventario[scelta - 1].Damage;
+
+        // copio l'equipaggiamento temporaneo nell'inventario
+        strcpy(inventario[scelta - 1].nome, temp.nome);
+        strcpy(inventario[scelta - 1].Descrizione, temp.Descrizione);
+        inventario[scelta - 1].Tipo = temp.Tipo;
+        inventario[scelta - 1].Rarity = temp.Rarity;
+        inventario[scelta - 1].Value = temp.Value;
+        inventario[scelta - 1].Durability = temp.Durability;
+        inventario[scelta - 1].Damage = temp.Damage;
+        inventario[scelta - 1].Quantity = temp.Quantity;
     }
 }
 
@@ -6153,6 +6421,12 @@ int main()
     const char *Tipo[] = {"Arma", "Elmo", "Corazza", "Pantaloni", "Stivali", "Scudo", "Guarigione", "Veleno", "Buff", "Debuff", "Speciale"};
     O inventario[SIZE_INV];
     O equipaggiamento[SIZE_EQUIP];
+    equipaggiamento[0].Tipo = "Arma";
+    equipaggiamento[1].Tipo = "Scudo";
+    equipaggiamento[2].Tipo = "Elmo";
+    equipaggiamento[3].Tipo = "Corazza";
+    equipaggiamento[4].Tipo = "Pantaloni";
+    equipaggiamento[5].Tipo = "Stivali";
     inv_iniziale(inventario);
     equip_iniziale(&pg, equipaggiamento);
     SetColor(2); // verde
